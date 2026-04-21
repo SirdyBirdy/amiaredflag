@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Am I The Red Flag? | Brutally Honest Self-Assessment</title>
+  <meta name="description" content="Take the quiz. Find out if you're the red flag in your relationships. If you have to ask... you probably are. But let's find out for sure." />
+  <meta property="og:title" content="Am I The Red Flag? 🚩" />
+  <meta property="og:description" content="If you have to ask, you probably are. Take the quiz and find out — then share your diagnosis." />
+  <meta property="og:url" content="https://amitheredflag.com/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Am I The Red Flag? 🚩" />
+  <meta name="twitter:description" content="If you have to ask, you probably are. Take the brutally honest quiz." />
+  <link rel="canonical" href="https://amitheredflag.com/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="site-wrapper">
+
+    <header class="site-header">
+      <div class="logo">
+        <span class="logo-flag">🚩</span>
+        <span class="logo-text">amitheredflag<span class="logo-dot">.com</span></span>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <!-- HERO -->
+      <section class="hero">
+        <div class="flag-wave">🚩</div>
+        <h1 class="hero-title">AM I THE<br>RED FLAG?</h1>
+        <p class="hero-sub">if you have to ask... you probably are.<br>but let's find out for sure.</p>
+      </section>
+
+      <!-- COLD OPEN ANSWER -->
+      <div class="answer-box">
+        <div class="answer-verdict">
+          THE FACT THAT YOU GOOGLED THIS
+          <span>is itself a red flag. but we appreciate the self-awareness.</span>
+        </div>
+        <div class="therapy-nudge">scroll down. we need to talk.</div>
+      </div>
+
+      <!-- AD SLOT TOP -->
+      <div class="ad-slot ad-slot-top" id="adTop">
+        <!-- ad unit here -->
+      </div>
+
+      <!-- CHECKLIST -->
+      <section class="quiz-section">
+        <h2 class="quiz-header">THE DIAGNOSIS CHECKLIST</h2>
+        <p class="quiz-sub">select everything that applies. be honest. nobody's watching. except your future therapist.</p>
+        <div id="flagList"></div>
+
+        <div class="meter-wrap">
+          <div class="meter-label">
+            <span>red flag density</span>
+            <span id="scoreLabel">0 / 20 selected</span>
+          </div>
+          <div class="meter-track">
+            <div class="meter-fill" id="meterFill" style="width:0%"></div>
+          </div>
+          <div class="meter-verdict" id="meterVerdict">start checking boxes...</div>
+        </div>
+
+        <button class="diagnose-btn" id="diagnoseBtn">GET MY DIAGNOSIS</button>
+      </section>
+
+      <!-- RESULT CARD -->
+      <div class="result-card hidden" id="resultCard">
+        <div class="result-title" id="resultTitle"></div>
+        <div class="result-desc" id="resultDesc"></div>
+        <div class="result-cta" id="resultCta"></div>
+      </div>
+
+      <!-- AD SLOT MID -->
+      <div class="ad-slot ad-slot-mid hidden" id="adMid">
+        <!-- ad unit here -->
+      </div>
+
+      <!-- THERAPIST SECTION -->
+      <section class="therapy-section hidden" id="therapySection">
+        <h2 class="therapy-header">here, take these.</h2>
+        <p class="therapy-sub">we're not saying you need therapy. we're saying you need therapy.</p>
+        <div class="therapist-grid" id="therapistGrid"></div>
+      </section>
+
+      <!-- SHARE SECTION -->
+      <div class="share-section hidden" id="shareSection">
+        <div class="share-header">share your diagnosis (character development starts with honesty)</div>
+        <div class="share-text-box" id="shareTextBox"></div>
+        <div class="share-btns">
+          <button class="share-btn btn-twitter" id="btnTwitter">post on X</button>
+          <button class="share-btn btn-whatsapp" id="btnWhatsapp">whatsapp it</button>
+          <button class="share-btn btn-copy" id="btnCopy">copy text</button>
+        </div>
+      </div>
+
+      <!-- SEO SECTION -->
+      <section class="seo-section">
+        <h2 class="seo-title">What is a red flag, really?</h2>
+        <div class="seo-body">
+          <p>A <strong>red flag</strong> in relationships is a warning sign — a behaviour or pattern that suggests emotional unavailability, manipulation, avoidance, or general chaos energy. The tricky part? Most red flags don't know they're red flags.</p>
+          <p>The checklist above covers the most common ones: avoidant attachment, passive-aggressive communication, breadcrumbing, commitment-phobia, and the classic "i just don't do labels" defence. If you checked more than seven, we gently suggest calling someone who charges by the hour.</p>
+          <p>This site is satire. But also it isn't. You know who you are.</p>
+        </div>
+      </section>
+
+      <!-- INFO STRIP -->
+      <section class="info-strip">
+        <div class="info-card">
+          <div class="info-icon">🚩</div>
+          <div class="info-text">
+            <strong>The self-awareness paradox</strong>
+            <span>Knowing your flaws doesn't automatically fix them. But it's a start. A very, very small start.</span>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🧠</div>
+          <div class="info-text">
+            <strong>Attachment theory</strong>
+            <span>A lot of this comes down to anxious vs avoidant attachment styles. Read "Attached" by Levine & Heller.</span>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">💬</div>
+          <div class="info-text">
+            <strong>Therapy is not a punishment</strong>
+            <span>It's a shortcut. The people who go fastest in life are the ones who asked for directions.</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <p class="footer-disclaimer"><em>amitheredflag.com</em> is satire and entertainment, not a clinical diagnostic tool. If you recognised yourself in 10+ items on that checklist, that's between you and your therapist. We are not responsible for breakups, epiphanies, or the sudden urge to call your ex. Seek help. Seriously, but lovingly.</p>
+      <p class="footer-copy">© <span id="footerYear"></span> amitheredflag.com — made during what was, ironically, a very healthy relationship era.</p>
+    </footer>
+
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
