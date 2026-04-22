@@ -31,9 +31,10 @@ const VERDICTS = [
     zone: "green-zone",
     title: "SURPRISINGLY FINE",
     emoji: "🟢",
-    desc: "Okay, either you're genuinely healthy or you're not being honest. We'll give you the benefit of the doubt. You can still send this to someone you suspect isn't doing as well.",
-    cta: "share this with your most chaotic friend.",
-    shareText: (score) => `i just took the am i the red flag quiz.\n\nresult: 🟢 SURPRISINGLY FINE (${score}/20 flags)\n\nallegedly i'm one of the healthy ones. alleged.\n\ncheck yours → amitheredflag.com`,
+    desc: "Okay. Either you're genuinely a well-adjusted person or you're in denial — but we're choosing to believe you. You passed. You are not the red flag. Scroll down. We have an offer for you.",
+    cta: "no really. scroll down. this is important.",
+    badminton: true,
+    shareText: (score) => `i just took the am i the red flag quiz.\n\nresult: 🟢 SURPRISINGLY FINE (${score}/20 flags)\n\nallegedly i'm one of the healthy ones. alleged.\n\nthey also invited me to play badminton??\n\ncheck yours → amitheredflag.com`,
   },
   {
     min: 3, max: 6,

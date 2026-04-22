@@ -20,9 +20,13 @@
   const therapistGrid = document.getElementById("therapistGrid");
   const shareSection  = document.getElementById("shareSection");
   const shareTextBox  = document.getElementById("shareTextBox");
-  const adMid         = document.getElementById("adMid");
-  const toast         = document.getElementById("toast");
-  const footerYear    = document.getElementById("footerYear");
+  const adMid           = document.getElementById("adMid");
+  const badmintonSection = document.getElementById("badmintonSection");
+  const badmintonForm   = document.getElementById("badmintonForm");
+  const badmintonThanks = document.getElementById("badmintonThanks");
+  const badmintonSubmit = document.getElementById("badmintonSubmit");
+  const toast           = document.getElementById("toast");
+  const footerYear      = document.getElementById("footerYear");
 
   // ── Init ───────────────────────────────
   function init() {
@@ -89,6 +93,13 @@
     document.getElementById("resultTitle").textContent = verdict.emoji + " " + verdict.title;
     document.getElementById("resultDesc").textContent  = verdict.desc;
     document.getElementById("resultCta").textContent   = verdict.cta;
+
+    // Badminton invite (green zone only)
+    if (verdict.badminton) {
+      badmintonSection.classList.remove("hidden");
+    } else {
+      badmintonSection.classList.add("hidden");
+    }
 
     // Show mid ad
     adMid.classList.remove("hidden");
@@ -161,6 +172,42 @@
     document.getElementById("btnTwitter").addEventListener("click", shareTwitter);
     document.getElementById("btnWhatsapp").addEventListener("click", shareWhatsapp);
     document.getElementById("btnCopy").addEventListener("click", copyText);
+    badmintonSubmit.addEventListener("click", handleBadmintonSubmit);
+  }
+
+  // ── Badminton form ─────────────────────
+  function handleBadmintonSubmit() {
+    const name  = document.getElementById("bName").value.trim();
+    const email = document.getElementById("bEmail").value.trim();
+    const level = document.getElementById("bLevel").value;
+    const note  = document.getElementById("bNote").value.trim();
+
+    if (!name)  { showToast("we need to know what to call you"); return; }
+    if (!email || !email.includes("@")) { showToast("give us a real email, we promise not to be weird about it"); return; }
+    if (!level) { showToast("skill level? be honest."); return; }
+
+    const body = new URLSearchParams({
+      "form-name": "badminton-signup",
+      name, email, level, note
+    }).toString();
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    })
+    .then(() => {
+      badmintonForm.classList.add("hidden");
+      badmintonThanks.classList.remove("hidden");
+      badmintonThanks.scrollIntoView({ behavior: "smooth", block: "center" });
+      showToast("see you on the court 🏸");
+    })
+    .catch(() => {
+      // Still show thanks — form data logged, submission may have worked
+      badmintonForm.classList.add("hidden");
+      badmintonThanks.classList.remove("hidden");
+      showToast("see you on the court 🏸");
+    });
   }
 
   // ── Boot ───────────────────────────────

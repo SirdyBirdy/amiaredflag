@@ -79,6 +79,54 @@
         <div class="result-cta" id="resultCta"></div>
       </div>
 
+      <!-- BADMINTON INVITE (green zone only) -->
+      <div class="badminton-section hidden" id="badmintonSection">
+        <div class="badminton-header">
+          <span class="badminton-shuttle">🏸</span>
+          <h2 class="badminton-title">WAIT. YOU'RE ACTUALLY FINE.</h2>
+        </div>
+        <p class="badminton-sub">we don't say this lightly. most people who take this quiz are not fine.<br>but you? you're alright. and we want to play badminton with you.</p>
+        <div class="badminton-body">
+          <p>the owners of this website play badminton every weekend and we are <em>actively</em> looking for non-red-flag people to join us. this is not a bit. well, it started as a bit. but we genuinely need a fourth.</p>
+        </div>
+
+        <div class="badminton-form" id="badmintonForm">
+          <!-- hidden honeypot for netlify forms -->
+          <input type="hidden" name="form-name" value="badminton-signup" />
+          <input type="text" name="bot-field" style="display:none" />
+          <div class="form-row">
+            <label class="form-label" for="bName">your name</label>
+            <input type="text" id="bName" placeholder="what do we call you" autocomplete="off" />
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="bEmail">email</label>
+            <input type="email" id="bEmail" placeholder="so we can send the location" autocomplete="off" />
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="bLevel">skill level</label>
+            <select id="bLevel">
+              <option value="">be honest</option>
+              <option value="beginner">complete beginner (welcome)</option>
+              <option value="casual">i've played a few times (also welcome)</option>
+              <option value="intermediate">actually decent (very welcome)</option>
+              <option value="competitive">i take this seriously (you'll fit in)</option>
+              <option value="liar">i said i was good but i lied (red flag but forgivable)</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="bNote">anything we should know</label>
+            <input type="text" id="bNote" placeholder="e.g. i have a bad knee, i always bring snacks, etc." autocomplete="off" />
+          </div>
+          <button class="badminton-submit-btn" id="badmintonSubmit">YES I WANT TO PLAY BADMINTON</button>
+        </div>
+
+        <div class="badminton-thanks hidden" id="badmintonThanks">
+          <div class="thanks-icon">🏸</div>
+          <div class="thanks-title">YOU'RE IN.</div>
+          <p class="thanks-desc">we'll be in touch. bring your own racket if you have one. we have spares if you don't. don't be late. that's a yellow flag.</p>
+        </div>
+      </div>
+
       <!-- AD SLOT MID -->
       <div class="ad-slot ad-slot-mid hidden" id="adMid">
         <!-- ad unit here -->
