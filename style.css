@@ -1,6 +1,6 @@
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    RESET & BASE
-───────────────────────────────────────── */
+----------------------------------------- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -61,9 +61,9 @@ body {
   min-height: 100vh;
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    LAYOUT
-───────────────────────────────────────── */
+----------------------------------------- */
 .site-wrapper {
   max-width: 680px;
   margin: 0 auto;
@@ -79,9 +79,9 @@ body {
   display: none !important;
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    HEADER
-───────────────────────────────────────── */
+----------------------------------------- */
 .site-header {
   display: flex;
   align-items: center;
@@ -111,9 +111,9 @@ body {
   color: var(--red);
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    HERO
-───────────────────────────────────────── */
+----------------------------------------- */
 .hero {
   text-align: center;
   padding: 3rem 1rem 1.5rem;
@@ -121,7 +121,6 @@ body {
 
 .flag-wave {
   font-size: 72px;
-  display: block;
   margin-bottom: 0.5rem;
   animation: flagwave 1.4s ease-in-out infinite alternate;
   transform-origin: bottom left;
@@ -149,9 +148,9 @@ body {
   line-height: 1.7;
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    ANSWER BOX
-───────────────────────────────────────── */
+----------------------------------------- */
 .answer-box {
   background: var(--red);
   color: #fff;
@@ -212,9 +211,9 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    AD SLOTS
-───────────────────────────────────────── */
+----------------------------------------- */
 .ad-slot {
   width: 100%;
   min-height: 90px;
@@ -228,11 +227,12 @@ body {
   font-size: 11px;
   color: var(--text-hint);
   letter-spacing: 0.5px;
+  overflow: hidden;
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    QUIZ SECTION
-───────────────────────────────────────── */
+----------------------------------------- */
 .quiz-section {
   margin: 2rem 0;
 }
@@ -252,7 +252,7 @@ body {
   line-height: 1.7;
 }
 
-/* ── Flag cards ── */
+/* Flag cards */
 .flag-card {
   background: var(--bg);
   border: 0.5px solid var(--border);
@@ -327,7 +327,7 @@ body {
   border-color: var(--red-mid);
 }
 
-/* ── Meter ── */
+/* Meter */
 .meter-wrap {
   margin: 1.75rem 0 1rem;
   background: var(--bg-2);
@@ -368,7 +368,7 @@ body {
   min-height: 26px;
 }
 
-/* ── Diagnose button ── */
+/* Diagnose button */
 .diagnose-btn {
   width: 100%;
   padding: 1.1rem;
@@ -387,9 +387,9 @@ body {
 .diagnose-btn:hover  { opacity: 0.88; }
 .diagnose-btn:active { transform: scale(0.985); }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    RESULT CARD
-───────────────────────────────────────── */
+----------------------------------------- */
 .result-card {
   border-radius: var(--radius-lg);
   padding: 1.75rem;
@@ -438,9 +438,9 @@ body {
   font-style: italic;
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    THERAPY SECTION
-───────────────────────────────────────── */
+----------------------------------------- */
 .therapy-section {
   margin: 2rem 0;
 }
@@ -509,9 +509,13 @@ body {
   border: none;
 }
 
-/* ─────────────────────────────────────────
+@media (prefers-color-scheme: dark) {
+  .therapist-btn { color: #6aaee8; }
+}
+
+/* -----------------------------------------
    SHARE SECTION
-───────────────────────────────────────── */
+----------------------------------------- */
 .share-section {
   background: var(--bg-2);
   border-radius: var(--radius-lg);
@@ -536,9 +540,18 @@ body {
   padding: 0.875rem;
   color: var(--text);
   line-height: 1.65;
-  margin-bottom: 0.875rem;
+  margin-bottom: 0.5rem;
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+.share-watermark {
+  font-size: 10px;
+  color: var(--text-hint);
+  letter-spacing: 0.5px;
+  text-align: right;
+  margin-bottom: 0.875rem;
+  padding-right: 2px;
 }
 
 .share-btns {
@@ -576,9 +589,9 @@ body {
   border-color: #25D366;
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    SEO SECTION
-───────────────────────────────────────── */
+----------------------------------------- */
 .seo-section {
   margin: 3rem 0 2rem;
   padding-top: 2rem;
@@ -605,9 +618,9 @@ body {
   color: var(--text);
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    INFO STRIP
-───────────────────────────────────────── */
+----------------------------------------- */
 .info-strip {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -649,13 +662,62 @@ body {
   line-height: 1.55;
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
+   SISTER SITES
+----------------------------------------- */
+.sister-section {
+  padding: 1.5rem 0 0.5rem;
+  border-top: 0.5px solid var(--border);
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.sister-label {
+  font-size: 10px;
+  color: var(--text-hint);
+  letter-spacing: 0.5px;
+  text-transform: lowercase;
+  margin-bottom: 0.6rem;
+}
+
+.sister-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 4px;
+  justify-content: center;
+  align-items: center;
+  font-size: 11px;
+}
+
+.sister-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.2px;
+  transition: color 0.12s;
+}
+
+.sister-links a:hover {
+  color: var(--red);
+  text-decoration: underline;
+}
+
+.sister-sep {
+  color: var(--border-mid);
+  font-size: 11px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .sister-links a { color: var(--text-hint); }
+  .sister-links a:hover { color: var(--red); }
+}
+
+/* -----------------------------------------
    FOOTER
-───────────────────────────────────────── */
+----------------------------------------- */
 .site-footer {
   border-top: 0.5px solid var(--border);
   padding: 2rem 1.5rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .footer-disclaimer {
@@ -670,9 +732,9 @@ body {
   color: var(--text-hint);
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    BADMINTON SECTION
-───────────────────────────────────────── */
+----------------------------------------- */
 .badminton-section {
   margin: 2rem 0;
   border: 2px dashed #C0DD97;
@@ -728,7 +790,7 @@ body {
   color: var(--green-dark);
 }
 
-/* ── Form ── */
+/* Form */
 .badminton-form {
   display: flex;
   flex-direction: column;
@@ -770,6 +832,11 @@ body {
   color: var(--text-hint);
 }
 
+.badminton-form select option {
+  background: var(--bg);
+  color: var(--text);
+}
+
 .badminton-submit-btn {
   width: 100%;
   padding: 1rem;
@@ -788,7 +855,7 @@ body {
 .badminton-submit-btn:hover  { opacity: 0.88; }
 .badminton-submit-btn:active { transform: scale(0.985); }
 
-/* ── Thanks state ── */
+/* Thanks state */
 .badminton-thanks {
   text-align: center;
   padding: 1rem 0 0.5rem;
@@ -815,9 +882,9 @@ body {
   margin: 0 auto;
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    TOAST
-───────────────────────────────────────── */
+----------------------------------------- */
 .toast {
   position: fixed;
   bottom: 1.5rem;
@@ -841,9 +908,9 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 
-/* ─────────────────────────────────────────
+/* -----------------------------------------
    RESPONSIVE
-───────────────────────────────────────── */
+----------------------------------------- */
 @media (max-width: 480px) {
   .main-content {
     padding: 0 1rem;
@@ -868,5 +935,14 @@ body {
   .share-btn {
     flex: none;
     width: 100%;
+  }
+
+  .sister-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sister-sep {
+    display: none;
   }
 }
