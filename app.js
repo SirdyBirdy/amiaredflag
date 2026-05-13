@@ -1,5 +1,8 @@
 // -----------------------------------------
 //  APP — amitheredflag.lol
+//  Key change from previous version:
+//  Ads are only pushed AFTER runDiagnosis()
+//  completes. No inline adsbygoogle.push().
 // -----------------------------------------
 
 (function () {
@@ -8,19 +11,21 @@
   // State
   const selected = new Set();
   let diagnosisRun = false;
+  let adsInitialised = false;
 
   // DOM refs
-  const flagList        = document.getElementById("flagList");
-  const meterFill       = document.getElementById("meterFill");
-  const scoreLabel      = document.getElementById("scoreLabel");
-  const meterVerdict    = document.getElementById("meterVerdict");
-  const diagnoseBtn     = document.getElementById("diagnoseBtn");
-  const resultCard      = document.getElementById("resultCard");
-  const therapySection  = document.getElementById("therapySection");
-  const therapistGrid   = document.getElementById("therapistGrid");
-  const shareSection    = document.getElementById("shareSection");
-  const shareTextBox    = document.getElementById("shareTextBox");
-  const adMid           = document.getElementById("adMid");
+  const flagList          = document.getElementById("flagList");
+  const meterFill         = document.getElementById("meterFill");
+  const scoreLabel        = document.getElementById("scoreLabel");
+  const meterVerdict      = document.getElementById("meterVerdict");
+  const diagnoseBtn       = document.getElementById("diagnoseBtn");
+  const resultCard        = document.getElementById("resultCard");
+  const therapySection    = document.getElementById("therapySection");
+  const therapistGrid     = document.getElementById("therapistGrid");
+  const shareSection      = document.getElementById("shareSection");
+  const shareTextBox      = document.getElementById("shareTextBox");
+  const adMid             = document.getElementById("adMid");
+  const adBottom          = document.getElementById("adBottom");
   const badmintonSection  = document.getElementById("badmintonSection");
   const badmintonForm     = document.getElementById("badmintonForm");
   const badmintonThanks   = document.getElementById("badmintonThanks");
@@ -28,15 +33,40 @@
   const toast             = document.getElementById("toast");
   const footerYear        = document.getElementById("footerYear");
 
-  // Init
+  // ------------------------------------------
+  // AD INIT — called once after result renders
+  // ------------------------------------------
+  function initAds() {
+    if (adsInitialised) return;
+    adsInitialised = true;
+
+    if (adMid) {
+      adMid.classList.remove("hidden");
+      try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+    }
+    // Stagger second slot slightly
+    setTimeout(function () {
+      if (adBottom) {
+        adBottom.classList.remove("hidden");
+        try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+      }
+    }, 800);
+  }
+
+  // ------------------------------------------
+  // INIT
+  // ------------------------------------------
   function init() {
-    footerYear.textContent = new Date().getFullYear();
+    if (footerYear) footerYear.textContent = new Date().getFullYear();
     renderFlags();
     bindEvents();
   }
 
-  // Render checklist
+  // ------------------------------------------
+  // RENDER CHECKLIST
+  // ------------------------------------------
   function renderFlags() {
+    if (!flagList) return;
     FLAGS.forEach(function (f, i) {
       var div = document.createElement("div");
       div.className = "flag-card";
@@ -52,43 +82,50 @@
     });
   }
 
-  // Toggle a flag
+  // ------------------------------------------
+  // TOGGLE FLAG
+  // ------------------------------------------
   function toggleFlag(i, el) {
     var chk = document.getElementById("chk" + i);
     if (selected.has(i)) {
       selected.delete(i);
       el.classList.remove("selected");
-      chk.textContent = "";
+      if (chk) chk.textContent = "";
     } else {
       selected.add(i);
       el.classList.add("selected");
-      chk.textContent = "\u2713";
+      if (chk) chk.textContent = "\u2713";
     }
     updateMeter();
     if (diagnosisRun) runDiagnosis(false);
   }
 
-  // Update meter bar
+  // ------------------------------------------
+  // METER
+  // ------------------------------------------
   function updateMeter() {
     var n   = selected.size;
     var pct = n === 0 ? 0 : Math.round((n / FLAGS.length) * 100);
-    meterFill.style.width = pct + "%";
-    scoreLabel.textContent = n + " / " + FLAGS.length + " selected";
+    if (meterFill) meterFill.style.width = pct + "%";
+    if (scoreLabel) scoreLabel.textContent = n + " / " + FLAGS.length + " selected";
 
     var label = METER_LABELS[0][2];
     for (var j = 0; j < METER_LABELS.length; j++) {
-      var lo = METER_LABELS[j][0];
-      var hi = METER_LABELS[j][1];
-      var txt = METER_LABELS[j][2];
-      if (n >= lo && n <= hi) { label = txt; break; }
+      if (n >= METER_LABELS[j][0] && n <= METER_LABELS[j][1]) {
+        label = METER_LABELS[j][2];
+        break;
+      }
     }
-    meterVerdict.textContent = label;
+    if (meterVerdict) meterVerdict.textContent = label;
   }
 
-  // Run full diagnosis
+  // ------------------------------------------
+  // RUN DIAGNOSIS
+  // ------------------------------------------
   function runDiagnosis(scroll) {
     if (scroll === undefined) scroll = true;
     diagnosisRun = true;
+
     var n = selected.size;
     var verdict = VERDICTS[VERDICTS.length - 1];
     for (var i = 0; i < VERDICTS.length; i++) {
@@ -99,46 +136,55 @@
     }
 
     // Result card
-    resultCard.className = "result-card " + verdict.zone;
-    resultCard.classList.remove("hidden");
-    document.getElementById("resultTitle").textContent = verdict.emoji + " " + verdict.title;
-    document.getElementById("resultDesc").textContent  = verdict.desc;
-    document.getElementById("resultCta").textContent   = verdict.cta;
+    if (resultCard) {
+      resultCard.className = "result-card " + verdict.zone;
+      resultCard.classList.remove("hidden");
+    }
+    var titleEl = document.getElementById("resultTitle");
+    var descEl  = document.getElementById("resultDesc");
+    var ctaEl   = document.getElementById("resultCta");
+    if (titleEl) titleEl.textContent = verdict.emoji + " " + verdict.title;
+    if (descEl)  descEl.textContent  = verdict.desc;
+    if (ctaEl)   ctaEl.textContent   = verdict.cta;
 
-    // Badminton invite (green zone only)
-    if (verdict.badminton) {
-      badmintonSection.classList.remove("hidden");
-    } else {
-      badmintonSection.classList.add("hidden");
+    // Badminton invite
+    if (badmintonSection) {
+      if (verdict.badminton) {
+        badmintonSection.classList.remove("hidden");
+      } else {
+        badmintonSection.classList.add("hidden");
+      }
     }
 
-    // Show mid ad
-    adMid.classList.remove("hidden");
-
-    // Therapists (7+ flags)
+    // Therapist section
     if (n >= 7) {
-      therapySection.classList.remove("hidden");
+      if (therapySection) therapySection.classList.remove("hidden");
       renderTherapists();
     } else {
-      therapySection.classList.add("hidden");
+      if (therapySection) therapySection.classList.add("hidden");
     }
 
     // Share section
     var msg = verdict.shareText(n);
-    shareTextBox.textContent = msg;
+    if (shareTextBox) shareTextBox.textContent = msg;
     window._shareMsg = msg;
-    shareSection.classList.remove("hidden");
+    if (shareSection) shareSection.classList.remove("hidden");
+
+    // *** Init ads now that content is visible ***
+    initAds();
 
     if (scroll) {
       setTimeout(function () {
-        resultCard.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (resultCard) resultCard.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 80);
     }
   }
 
-  // Render therapist cards
+  // ------------------------------------------
+  // RENDER THERAPIST CARDS
+  // ------------------------------------------
   function renderTherapists() {
-    if (therapistGrid.childElementCount > 0) return;
+    if (!therapistGrid || therapistGrid.childElementCount > 0) return;
     THERAPISTS.forEach(function (t) {
       var c = document.createElement("div");
       c.className = "therapist-card";
@@ -151,7 +197,9 @@
     });
   }
 
-  // Share helpers
+  // ------------------------------------------
+  // SHARE
+  // ------------------------------------------
   function shareTwitter() {
     var text = encodeURIComponent(
       (window._shareMsg || "am i the red flag? find out → amitheredflag.lol") +
@@ -173,39 +221,58 @@
     navigator.clipboard.writeText(txt).then(function () {
       showToast("copied to clipboard!");
       var btn = document.getElementById("btnCopy");
-      btn.textContent = "copied!";
-      setTimeout(function () { btn.textContent = "copy text"; }, 2000);
+      if (btn) {
+        btn.textContent = "copied!";
+        setTimeout(function () { btn.textContent = "copy text"; }, 2000);
+      }
     }).catch(function () {
       showToast("couldn't copy, try manually");
     });
   }
 
-  // Toast
+  // ------------------------------------------
+  // TOAST
+  // ------------------------------------------
   function showToast(msg) {
+    if (!toast) return;
     toast.textContent = msg;
     toast.classList.add("show");
     setTimeout(function () { toast.classList.remove("show"); }, 2500);
   }
 
-  // Bind events
+  // ------------------------------------------
+  // BIND EVENTS
+  // ------------------------------------------
   function bindEvents() {
-    diagnoseBtn.addEventListener("click", function () { runDiagnosis(true); });
-    document.getElementById("btnTwitter").addEventListener("click", shareTwitter);
-    document.getElementById("btnWhatsapp").addEventListener("click", shareWhatsapp);
-    document.getElementById("btnCopy").addEventListener("click", copyText);
-    badmintonSubmit.addEventListener("click", handleBadmintonSubmit);
+    if (diagnoseBtn) diagnoseBtn.addEventListener("click", function () { runDiagnosis(true); });
+
+    var twBtn   = document.getElementById("btnTwitter");
+    var waBtn   = document.getElementById("btnWhatsapp");
+    var cpBtn   = document.getElementById("btnCopy");
+    if (twBtn) twBtn.addEventListener("click", shareTwitter);
+    if (waBtn) waBtn.addEventListener("click", shareWhatsapp);
+    if (cpBtn) cpBtn.addEventListener("click", copyText);
+
+    if (badmintonSubmit) badmintonSubmit.addEventListener("click", handleBadmintonSubmit);
   }
 
-  // Badminton form
+  // ------------------------------------------
+  // BADMINTON FORM
+  // ------------------------------------------
   function handleBadmintonSubmit() {
-    var name  = document.getElementById("bName").value.trim();
-    var email = document.getElementById("bEmail").value.trim();
-    var level = document.getElementById("bLevel").value;
-    var note  = document.getElementById("bNote").value.trim();
+    var nameEl  = document.getElementById("bName");
+    var emailEl = document.getElementById("bEmail");
+    var levelEl = document.getElementById("bLevel");
+    var noteEl  = document.getElementById("bNote");
 
-    if (!name)                        { showToast("we need to know what to call you"); return; }
+    var name  = nameEl  ? nameEl.value.trim()  : "";
+    var email = emailEl ? emailEl.value.trim() : "";
+    var level = levelEl ? levelEl.value        : "";
+    var note  = noteEl  ? noteEl.value.trim()  : "";
+
+    if (!name)                         { showToast("we need to know what to call you"); return; }
     if (!email || !email.includes("@")) { showToast("give us a real email, we promise not to be weird about it"); return; }
-    if (!level)                       { showToast("skill level? be honest."); return; }
+    if (!level)                        { showToast("skill level? be honest."); return; }
 
     var body = new URLSearchParams({
       "form-name": "badminton-signup",
@@ -221,20 +288,23 @@
       body: body,
     })
     .then(function () {
-      badmintonForm.classList.add("hidden");
-      badmintonThanks.classList.remove("hidden");
-      badmintonThanks.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (badmintonForm)   badmintonForm.classList.add("hidden");
+      if (badmintonThanks) {
+        badmintonThanks.classList.remove("hidden");
+        badmintonThanks.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
       showToast("see you on the court \uD83C\uDFF8");
     })
     .catch(function () {
-      // Still show thanks - form data logged, submission likely worked
-      badmintonForm.classList.add("hidden");
-      badmintonThanks.classList.remove("hidden");
+      if (badmintonForm)   badmintonForm.classList.add("hidden");
+      if (badmintonThanks) badmintonThanks.classList.remove("hidden");
       showToast("see you on the court \uD83C\uDFF8");
     });
   }
 
-  // Boot
+  // ------------------------------------------
+  // BOOT
+  // ------------------------------------------
   document.addEventListener("DOMContentLoaded", init);
 
 })();
